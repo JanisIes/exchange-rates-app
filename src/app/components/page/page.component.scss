@@ -1,0 +1,38 @@
+:host {
+  margin: 10px;
+  position: relative;
+}
+p {
+  margin: 10px;
+}
+.request-options {
+  display: flex;
+  margin: 10px;
+  flex-flow: column;
+}
+
+.request-container {
+  display: flex;
+  margin: 10px;
+  .data {
+    display: flex;
+    flex-flow: column;
+    font-weight: bold;
+    .date {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      font-weight: normal;
+    }
+    .dates {
+      font-weight: bold;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      .rates {
+        font-weight: normal;
+        padding-left: 5px;
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+<p>Foreign exchange rates API</p>
+<div class="request-options">
+  <mat-form-field>
+  <mat-label>Select base currency</mat-label>
+  <mat-select (selectionChange)="getBaseCurrency($event)">
+    <mat-option value="EUR">EUR</mat-option>
+      <mat-option *ngFor="let currency of rates | keyvalue" [value]="currency.key">
+        {{currency.key}}
+      </mat-option>
+  </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Select start date</mat-label>
+    <input #startInput matInput [matDatepicker]="startPicker" (dateChange)="getStartDate($event)" disabled>
+    <button mat-button mat-icon-button matSuffix *ngIf="startDate" (click)="clearStarDate()"><mat-icon>close</mat-icon></button>
+    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+    <mat-datepicker #startPicker disabled="false"></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Select end date</mat-label>
+    <input #endInput matInput [matDatepicker]="endPicker" (dateChange)="getEndDate($event)" disabled>
+    <button mat-button mat-icon-button matSuffix *ngIf="endDate" (click)="clearEndDate()"><mat-icon>close</mat-icon></button>
+    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+    <mat-datepicker #endPicker disabled="false"></mat-datepicker>
+  </mat-form-field>
+  <button mat-button (click)="getExchangeData()">Make request</button>
+</div>
+<div class="request-container">
+  <div class="data" *ngIf="baseData">
+    Base currency - {{baseData.base}}<br>Date - {{baseData.date}}
+    <div class="date" *ngFor="let rate of baseData.rates | keyvalue">
+      {{rate.key}} - {{rate.value}}
+    </div>
+  </div>
+  <div class="data" *ngIf="timePeriodData">
+    Base currency - {{timePeriodData.base}}<br>Start date - {{timePeriodData.start_at}}<br>End date - {{timePeriodData.end_at}}
+    <div class="dates" *ngFor="let date of timePeriodData.rates | keyvalue">
+      Date - {{date.key}}
+      <div class="rates" *ngFor="let rate of date.value | keyvalue">|{{rate.key}} - {{rate.value}}|</div>
+    </div>
+  </div>
+</div>
